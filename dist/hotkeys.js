@@ -1,5 +1,5 @@
 /*!
- * hotkeys-js v3.7.2
+ * hotkeys-js v3.8.0
  * A simple micro-library for defining and dispatching keyboard shortcuts. It has no dependencies.
  * 
  * Copyright (c) 2019 kenny wong <wowohoo@qq.com>
@@ -28,7 +28,10 @@
     return _typeof(obj);
   }
 
-  var isff = typeof navigator !== 'undefined' ? navigator.userAgent.toLowerCase().indexOf('firefox') > 0 : false; // 绑定事件
+  function isff() {
+    return typeof navigator !== 'undefined' ? navigator.userAgent.toLowerCase().indexOf('firefox') > 0 : false;
+  } // 绑定事件
+
 
   function addEvent(object, event, method) {
     if (object.addEventListener) {
@@ -82,41 +85,56 @@
     return isIndex;
   }
 
-  var _keyMap = {
-    backspace: 8,
-    tab: 9,
-    clear: 12,
-    enter: 13,
-    "return": 13,
-    esc: 27,
-    escape: 27,
-    space: 32,
-    left: 37,
-    up: 38,
-    right: 39,
-    down: 40,
-    del: 46,
-    "delete": 46,
-    ins: 45,
-    insert: 45,
-    home: 36,
-    end: 35,
-    pageup: 33,
-    pagedown: 34,
-    capslock: 20,
-    '⇪': 20,
-    ',': 188,
-    '.': 190,
-    '/': 191,
-    '`': 192,
-    '-': isff ? 173 : 189,
-    '=': isff ? 61 : 187,
-    ';': isff ? 59 : 186,
-    '\'': 222,
-    '[': 219,
-    ']': 221,
-    '\\': 220
+  var _keyMap = function _keyMap() {
+    return {
+      backspace: 8,
+      tab: 9,
+      clear: 12,
+      enter: 13,
+      "return": 13,
+      esc: 27,
+      escape: 27,
+      space: 32,
+      left: 37,
+      up: 38,
+      right: 39,
+      down: 40,
+      del: 46,
+      "delete": 46,
+      ins: 45,
+      insert: 45,
+      home: 36,
+      end: 35,
+      pageup: 33,
+      pagedown: 34,
+      capslock: 20,
+      '⇪': 20,
+      ',': 188,
+      '.': 190,
+      '/': 191,
+      '`': 192,
+      '-': isff() ? 173 : 189,
+      '=': isff() ? 61 : 187,
+      ';': isff() ? 59 : 186,
+      "'": 222,
+      '[': 219,
+      ']': 221,
+      '\\': 220,
+      f1: 111 + 1,
+      f2: 111 + 2,
+      f3: 111 + 3,
+      f4: 111 + 4,
+      f5: 111 + 5,
+      f6: 111 + 6,
+      f7: 111 + 7,
+      f8: 111 + 8,
+      f9: 111 + 9,
+      f10: 111 + 10,
+      f11: 111 + 11,
+      f12: 111 + 12
+    };
   }; // Modifier Keys
+
 
   var _modifier = {
     // shiftKey
@@ -151,11 +169,7 @@
     17: false,
     91: false
   };
-  var _handlers = {}; // F1~F12 special key
-
-  for (var k = 1; k < 20; k++) {
-    _keyMap["f".concat(k)] = 111 + k;
-  }
+  var _handlers = {};
 
   var _downKeys = []; // 记录摁下的绑定键
 
@@ -165,7 +179,7 @@
   // 返回键码
 
   var code = function code(x) {
-    return _keyMap[x.toLowerCase()] || _modifier[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
+    return _keyMap()[x.toLowerCase()] || _modifier[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
   }; // 设置获取当前范围（默认为'所有'）
 
 
@@ -513,25 +527,23 @@
         clearModifier(e);
       });
     }
-  }
 
-  var _api = {
-    setScope: setScope,
-    getScope: getScope,
-    deleteScope: deleteScope,
-    getPressedKeyCodes: getPressedKeyCodes,
-    isPressed: isPressed,
-    filter: filter,
-    unbind: unbind
-  };
+    var _api = {
+      setScope: setScope,
+      getScope: getScope,
+      deleteScope: deleteScope,
+      getPressedKeyCodes: getPressedKeyCodes,
+      isPressed: isPressed,
+      filter: filter,
+      unbind: unbind
+    };
 
-  for (var a in _api) {
-    if (Object.prototype.hasOwnProperty.call(_api, a)) {
-      hotkeys[a] = _api[a];
+    for (var a in _api) {
+      if (Object.prototype.hasOwnProperty.call(_api, a)) {
+        hotkeys[a] = _api[a];
+      }
     }
-  }
 
-  if (typeof window !== 'undefined') {
     var _hotkeys = window.hotkeys;
 
     hotkeys.noConflict = function (deep) {
@@ -541,8 +553,6 @@
 
       return hotkeys;
     };
-
-    window.hotkeys = hotkeys;
   }
 
   return hotkeys;
