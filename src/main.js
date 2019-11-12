@@ -8,7 +8,7 @@ const elementHasBindEvent = []; // 已绑定事件的节点记录
 
 // 返回键码
 const code = x =>
-  _keyMap[x.toLowerCase()] ||
+  _keyMap()[x.toLowerCase()] ||
   _modifier[x.toLowerCase()] ||
   x.toUpperCase().charCodeAt(0);
 
@@ -356,24 +356,22 @@ function hotkeys(key, option, method) {
       clearModifier(e);
     });
   }
-}
 
-const _api = {
-  setScope,
-  getScope,
-  deleteScope,
-  getPressedKeyCodes,
-  isPressed,
-  filter,
-  unbind,
-};
-for (const a in _api) {
-  if (Object.prototype.hasOwnProperty.call(_api, a)) {
-    hotkeys[a] = _api[a];
+  const _api = {
+    setScope,
+    getScope,
+    deleteScope,
+    getPressedKeyCodes,
+    isPressed,
+    filter,
+    unbind,
+  };
+  for (const a in _api) {
+    if (Object.prototype.hasOwnProperty.call(_api, a)) {
+      hotkeys[a] = _api[a];
+    }
   }
-}
 
-if (typeof window !== 'undefined') {
   const _hotkeys = window.hotkeys;
   hotkeys.noConflict = (deep) => {
     if (deep && window.hotkeys === hotkeys) {
@@ -381,7 +379,6 @@ if (typeof window !== 'undefined') {
     }
     return hotkeys;
   };
-  window.hotkeys = hotkeys;
 }
 
 export default hotkeys;

@@ -1,18 +1,24 @@
-const isff = typeof navigator !== 'undefined' ? navigator.userAgent.toLowerCase().indexOf('firefox') > 0 : false;
+function isff() {
+  return typeof navigator !== 'undefined'
+    ? navigator.userAgent.toLowerCase().indexOf('firefox') > 0
+    : false;
+}
 
 // 绑定事件
 function addEvent(object, event, method) {
   if (object.addEventListener) {
     object.addEventListener(event, method, false);
   } else if (object.attachEvent) {
-    object.attachEvent(`on${event}`, () => { method(window.event); });
+    object.attachEvent(`on${event}`, () => {
+      method(window.event);
+    });
   }
 }
 
 // 修饰键转换成对应的键码
 function getMods(modifier, key) {
   const mods = key.slice(0, key.length - 1);
-  for (let i = 0; i < mods.length; i++) mods[i] = modifier[mods[i].toLowerCase()];
+  for (let i = 0; i < mods.length; i++) { mods[i] = modifier[mods[i].toLowerCase()]; }
   return mods;
 }
 
@@ -45,10 +51,4 @@ function compareArray(a1, a2) {
   return isIndex;
 }
 
-export {
-  isff,
-  getMods,
-  getKeys,
-  addEvent,
-  compareArray,
-};
+export { isff, getMods, getKeys, addEvent, compareArray };
