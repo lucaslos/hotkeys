@@ -85,7 +85,6 @@ describe('\n   Hotkeys.js Test Case222.\n', () => {
     expect(title).toBe('hotkeys.js');
     const text = await page.$eval('#root', el => el.textContent);
     expect(text).toBe('hotkeys');
-    expect(window.hotkeys).toBeTruthy();
     expect(hotkeys(() => { })).toBeUndefined();
   });
 
