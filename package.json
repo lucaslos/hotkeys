@@ -1,21 +1,17 @@
 {
   "name": "hotkeys-js",
   "description": "A simple micro-library for defining and dispatching keyboard shortcuts. It has no dependencies.",
-  "version": "3.7.2",
+  "version": "3.8.0",
   "main": "index.js",
   "types": "index.d.ts",
   "module": "dist/hotkeys.esm.js",
   "scripts": {
     "lint": "eslint --ext .js src website",
-    "deploy": "node scripts/build.js && npm run doc:build && gh-pages -d doc",
-    "build": "node scripts/build.js && npm run doc:build",
+    "build": "node scripts/build.js",
     "watch": "node scripts/watch.js",
     "pretest": "npm run build",
     "test": "jest --coverage",
-    "test:watch": "jest --watch",
-    "doc": "npm run doc:dev",
-    "doc:dev": "NODE_ENV=development parcel website/index.html --out-dir doc --no-cache",
-    "doc:build": "rimraf doc && NODE_ENV=production parcel build website/index.html --out-dir doc --public-url ./ --no-cache --no-source-maps"
+    "test:watch": "jest --watch"
   },
   "files": [
     "index.d.ts",
@@ -60,6 +56,7 @@
     "bannerjs": "^1.0.5",
     "classnames": "^2.2.5",
     "colors-cli": "^1.0.13",
+    "cross-env": "^6.0.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.12.0",
